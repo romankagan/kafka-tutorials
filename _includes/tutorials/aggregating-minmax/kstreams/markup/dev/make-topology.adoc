@@ -13,5 +13,5 @@ The first thing the method does is create an instance of `https://kafka.apache.o
 5. Use the `toStream()` method to produce the count results to the specified output topic.
 
 +++++
-<pre class="snippet"><code class="java">{% include_raw tutorials/aggregating-count/kstreams/code/src/main/java/io/confluent/developer/AggregatingCount.java %}</code></pre>
+<pre class="snippet"><code class="java">{% include_raw tutorials/aggregating-minmax/kstreams/code/src/main/java/io/confluent/developer/AggregatingCount.java %}</code></pre>
 +++++

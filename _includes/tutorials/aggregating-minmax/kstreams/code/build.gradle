@@ -50,11 +50,11 @@ jar {
   manifest {
     attributes(
       "Class-Path": configurations.compile.collect { it.getName() }.join(" "),
-      "Main-Class": "io.confluent.developer.AggregatingCount"
+      "Main-Class": "io.confluent.developer.AggregatingMinMax"
     )
   }
 }
 
 shadowJar {
-    archiveName = "kstreams-aggregating-count-standalone-${version}.${extension}"
+    archiveName = "kstreams-aggregating-minmax-standalone-${version}.${extension}"
 }
