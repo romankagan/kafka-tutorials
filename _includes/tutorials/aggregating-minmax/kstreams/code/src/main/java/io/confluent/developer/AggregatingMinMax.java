@@ -66,30 +66,30 @@ public class AggregatingMinMax {
     //    .map( ((key, value) -> new KeyValue(key, new YearlyMovieFigures(key, 1, 2))))
     //    .to(outputTopic, Produced.with(Serdes.Integer(), movieFiguresSerde));
 
-    builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
-            .groupBy(
-                    (key, value) -> value.getTitle(),
-                    Grouped.with(Serdes.String(), ticketSaleSerde))
-            .aggregate(
-                    () -> 0L,
-                    ((key, value, aggregate) -> aggregate + value.getTitle().length()),
-                    Materialized.with(Serdes.String(), Serdes.Long()))
-            .toStream()
-            .to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));
+    //builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
+    //        .groupBy(
+    //                (key, value) -> value.getTitle(),
+    //                Grouped.with(Serdes.String(), ticketSaleSerde))
+    //        .aggregate(
+    //                () -> 0L,
+    //                ((key, value, aggregate) -> aggregate + value.getTitle().length()),
+    //                Materialized.with(Serdes.String(), Serdes.Long()))
+    //        .toStream()
+    //        .to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));
 
     // this topology results in Serialization Exceptions
     //      (Caused by: org.apache.kafka.common.errors.SerializationException: Error deserializing Avro message for id -1
     // Having something to do with the usage of the `YearlyMovieFigures` type in the initializer
-    //builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
-    //     .groupBy(
-    //             (k, v) -> v.getReleaseYear(),
-    //             Grouped.with(Serdes.Integer(), ticketSaleSerde))
-    //     .aggregate(
-    //             () -> new YearlyMovieFigures(),
-    //             ((key, value, aggregate) -> new YearlyMovieFigures(key, 1, 2)),
-    //             Materialized.with(Serdes.Integer(), movieFiguresSerde))
-    //     .toStream()
-    //     .to(outputTopic, Produced.with(Serdes.Integer(), movieFiguresSerde));
+    builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
+         .groupBy(
+                 (k, v) -> v.getReleaseYear(),
+                 Grouped.with(Serdes.Integer(), ticketSaleSerde))
+         .aggregate(
+                 () -> new YearlyMovieFigures(),
+                 ((key, value, aggregate) -> aggregate ),
+                 Materialized.with(Serdes.Integer(), movieFiguresSerde))
+         .toStream()
+         .to(outputTopic, Produced.with(Serdes.Integer(), movieFiguresSerde));
 
     return builder.build();
   }

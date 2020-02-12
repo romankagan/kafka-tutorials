@@ -94,14 +94,14 @@ public class AggregatingMinMaxTest {
 
     input.forEach( record -> testDriver.pipeInput(inputFactory.create(inputTopic, "", record)));
 
-    List<Long> actualOutput = new ArrayList<>();
+    List<YearlyMovieFigures> actualOutput = new ArrayList<>();
     boolean stop = false;
 
     do {
       stop = Optional.ofNullable(testDriver.readOutput(
                 outputTopic,
-                Serdes.String().deserializer(),
-                Serdes.Long().deserializer()))
+                Serdes.Integer().deserializer(),
+                yearlyFiguresSerdes.deserializer()))
              .map(record -> record.value())
              .map(movieFigures -> {
                actualOutput.add(movieFigures);
