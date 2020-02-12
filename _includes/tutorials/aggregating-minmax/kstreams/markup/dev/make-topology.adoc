@@ -1,4 +1,4 @@
-Then create the following file at `src/main/java/io/confluent/developer/AggregatingCount.java`. Let's take a close look at the `buildTopology()` method, which uses the Kafka Streams DSL.
+Then create the following file at `src/main/java/io/confluent/developer/AggregatingMinMax.java`. Let's take a close look at the `buildTopology()` method, which uses the Kafka Streams DSL.
 
 The first thing the method does is create an instance of `https://kafka.apache.org/{{ site.ak_javadoc_version }}/javadoc/org/apache/kafka/streams/StreamsBuilder.html[StreamsBuilder]`, which is the helper object that lets us build our topology. With our builder in hand, we can apply the following methods:
 
@@ -13,5 +13,5 @@ The first thing the method does is create an instance of `https://kafka.apache.o
 5. Use the `toStream()` method to produce the count results to the specified output topic.
 
 +++++
-<pre class="snippet"><code class="java">{% include_raw tutorials/aggregating-minmax/kstreams/code/src/main/java/io/confluent/developer/AggregatingCount.java %}</code></pre>
+<pre class="snippet"><code class="java">{% include_raw tutorials/aggregating-minmax/kstreams/code/src/main/java/io/confluent/developer/AggregatingMinMax.java %}</code></pre>
 +++++
